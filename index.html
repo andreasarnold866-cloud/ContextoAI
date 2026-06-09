@@ -8,94 +8,117 @@
 </head>
 <body>
     <div class="app-container">
-        <header>
+        <header class="main-header">
             <h1>Contexto</h1>
-            <p>Intelligente Textanalyse & Multilinguale Übersetzung</p>
+            <p>Contexto filtert Kernpunkte, korrigiert Grammatik und optimiert deine Texte per Knopfdruck.</p>
         </header>
 
-        <main>
-            <div class="card input-section">
-                <textarea id="text-input" placeholder="Füge hier deinen Text ein, lade eine Datei hoch oder nutze die Spracheingabe..."></textarea>
-                
-                <div class="utility-row">
-                    <label for="file-upload" class="btn btn-tool">📄 Datei einfügen (.txt)</label>
+        <div class="mac-window">
+            <div class="mac-header">
+                <div class="mac-buttons">
+                    <span class="close"></span>
+                    <span class="minimize"></span>
+                    <span class="expand"></span>
+                </div>
+                <div class="mac-title">contexto_secure_backend.js</div>
+            </div>
+
+            <div class="mac-body">
+                <div class="textarea-container">
+                    <textarea id="text-input" placeholder="Füge hier deinen Text ein..."></textarea>
+                    <div class="char-badge"><span id="char-count">0</span> Zeichen</div>
+                </div>
+
+                <div class="modul-section">
+                    <div class="section-title">ANALYSE-MODUL WÄHLEN:</div>
+                    <div class="modul-grid">
+                        <button class="modul-btn active" data-modul="Zusammenfassung">📄 Zusammenfassung</button>
+                        <button class="modul-btn" data-modul="Einfach Erklären">💡 Einfach Erklären</button>
+                        <button class="modul-btn" data-modul="Profi-Stil umschreiben">💼 Profi-Stil umschreiben</button>
+                        <button class="modul-btn" data-modul="Grammatik-Check">📝 Grammatik-Check</button>
+                        <button class="modul-btn" data-modul="Übersetzer">🌐 Übersetzer</button>
+                    </div>
+                </div>
+
+                <div class="extra-utilities">
+                    <label for="file-upload" class="utility-link">📎 Datei einfügen (.txt)</label>
                     <input type="file" id="file-upload" accept=".txt" style="display: none;">
-                    
-                    <button id="dictate-btn" class="btn btn-tool">🎙️ Spracheingabe</button>
+                    <span id="dictate-btn" class="utility-link">🎙️ Spracheingabe</span>
+                    <span class="metrics-text">Wörter: <span id="word-count">0</span></span>
                 </div>
 
-                <div class="controls">
-                    <div class="dropdown-group">
-                        <label for="language-select">Ziel-Sprache:</label>
-                        <select id="language-select" class="dropdown">
-                            <option value="English">Englisch (English)</option>
-                            <option value="Spanish">Spanisch (Español)</option>
-                            <option value="Mandarin Chinese">Chinesisch / Mandarin (中文)</option>
-                            <option value="Hindi">Hindi (हिन्दी)</option>
-                            <option value="Arabic">Arabisch (العربية)</option>
-                            <option value="Portuguese">Portugiesisch (Português)</option>
-                            <option value="Bengali">Bengali (বাংলা)</option>
-                            <option value="Russian">Russisch (Русский)</option>
-                            <option value="Japanese">Japanisch (日本語)</option>
-                            <option value="Punjabi">Panjabi (ਪੰਜਾਬੀ)</option>
-                            <option value="German">Deutsch (Deutsch)</option>
-                            <option value="Javanese">Javanisch (Wong Jawa)</option>
-                            <option value="Wu Chinese">Wu-Chinesisch (吴语)</option>
-                            <option value="Malay/Indonesian">Malaiisch / Indonesisch (Bahasa)</option>
-                            <option value="Telugu">Telugu (తెలుగు)</option>
-                            <option value="Vietnamese">Vietnamesisch (Tiếng Việt)</option>
-                            <option value="Korean">Koreanisch (한국어)</option>
-                            <option value="French">Französisch (Français)</option>
-                            <option value="Marathi">Marathi (मраठी)</option>
-                            <option value="Tamil">Tamil (தமிழ்)</option>
-                            <option value="Turkish">Türkisch (Türkçe)</option>
-                            <option value="Urdu">Urdu (اُردُو)</option>
-                            <option value="Italian">Italienisch (Italiano)</option>
-                            <option value="Yue Chinese/Cantonese">Kantonesisch (粵語)</option>
-                            <option value="Persian/Farsi">Persisch / Farsi (فارسی)</option>
-                        </select>
-                    </div>
+                <div id="language-box" class="language-selector-box hidden">
+                    <label for="language-select">Ziel-Sprache auswählen: </label>
+                    <select id="language-select" class="dropdown">
+                        <option value="English">Englisch (English)</option>
+                        <option value="Spanish">Spanisch (Español)</option>
+                        <option value="French">Französisch (Français)</option>
+                        <option value="Italian">Italienisch (Italiano)</option>
+                        <option value="German">Deutsch (Deutsch)</option>
+                        <option value="Mandarin Chinese">Chinesisch (中文)</option>
+                        <option value="Japanese">Japanisch (日本語)</option>
+                        <option value="Russian">Russisch (Русский)</option>
+                        <option value="Arabic">Arabisch (العربية)</option>
+                        <option value="Portuguese">Portugiesisch (Português)</option>
+                    </select>
+                </div>
 
-                    <div class="action-buttons">
-                        <button id="check-btn" class="btn btn-module">Grammatik prüfen</button>
-                        <button id="translate-btn" class="btn btn-primary">Übersetzen</button>
+                <div class="action-row">
+                    <button id="execute-btn" class="btn-execute">Analyse ausführen</button>
+                    <button id="reset-btn" class="btn-reset">Zurücksetzen</button>
+                </div>
+
+                <div id="result-card" class="result-card hidden">
+                    <div class="result-header">
+                        <h3 id="result-title">✨ Ergebnis</h3>
+                        <div class="result-actions">
+                            <span id="speak-btn" title="Vorlesen">🔊</span>
+                            <span id="download-btn" title="Herunterladen">📥</span>
+                        </div>
                     </div>
+                    <div id="text-output" class="result-content"></div>
                 </div>
             </div>
-
-            <div class="metrics-row">
-                <div class="metric-item">Wörter: <span id="word-count">0</span></div>
-                <div class="metric-item">Zeichen: <span id="char-count">0</span></div>
-            </div>
-
-            <div class="card output-section">
-                <div class="output-header">
-                    <h3>Ergebnis:</h3>
-                    <div id="loading-spinner" class="spinner hidden"></div>
-                    
-                    <div class="output-utilities">
-                        <button id="speak-btn" class="btn btn-tool">🔊 Vorlesen</button>
-                        <button id="download-btn" class="btn btn-tool">📥 Herunterladen</button>
-                    </div>
-                </div>
-                <div id="text-output" class="output-box">Dein Ergebnis erscheint hier...</div>
-            </div>
-        </main>
+        </div>
     </div>
 
     <script>
         const textInput = document.getElementById('text-input');
+        const charCount = document.getElementById('char-count');
+        const wordCount = document.getElementById('word-count');
+        const modulBtns = document.querySelectorAll('.modul-btn');
+        const languageBox = document.getElementById('language-box');
+        const executeBtn = document.getElementById('execute-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const resultCard = document.getElementById('result-card');
+        const resultTitle = document.getElementById('result-title');
         const textOutput = document.getElementById('text-output');
-        const spinner = document.getElementById('loading-spinner');
 
-        // Metriken zählen
+        let aktuellesModul = "Zusammenfassung";
+
+        // Live-Zähler
         textInput.addEventListener('input', () => {
-            const text = textInput.value.trim();
-            document.getElementById('char-count').innerText = text.length;
-            document.getElementById('word-count').innerText = text ? text.split(/\s+/).length : 0;
+            const text = textInput.value;
+            charCount.innerText = text.length;
+            wordCount.innerText = text.trim() ? text.trim().split(/\s+/).length : 0;
         });
 
-        // TXT Datei einlesen
+        // Modul-Kapsel Klick-Logik
+        modulBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                modulBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                aktuellesModul = btn.getAttribute('data-modul');
+
+                if (aktuellesModul === "Übersetzer") {
+                    languageBox.classList.remove('hidden');
+                } else {
+                    languageBox.classList.add('hidden');
+                }
+            });
+        });
+
+        // Datei einfügen
         document.getElementById('file-upload').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -107,78 +130,60 @@
             reader.readAsText(file);
         });
 
-        // Spracheingabe (Mikrofon)
+        // Spracheingabe
         const dictateBtn = document.getElementById('dictate-btn');
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRecognition) {
             const recognition = new SpeechRecognition();
             recognition.lang = 'de-DE';
-            recognition.interimResults = false;
-
             dictateBtn.addEventListener('click', () => {
                 recognition.start();
-                dictateBtn.innerText = "🎙️ Höre zu...";
+                dictateBtn.innerText = "🎙️ Höre...";
             });
-
             recognition.addEventListener('result', (e) => {
-                const transcript = e.results[0][0].transcript;
-                textInput.value += (textInput.value ? " " : "") + transcript;
+                textInput.value += e.results[0][0].transcript;
                 textInput.dispatchEvent(new Event('input'));
             });
-
-            recognition.addEventListener('end', () => {
-                dictateBtn.innerText = "🎙️ Spracheingabe";
-            });
+            recognition.addEventListener('end', () => { dictateBtn.innerText = "🎙️ Spracheingabe"; });
         }
 
-        // Übersetzung abschicken
-        document.getElementById('translate-btn').addEventListener('click', async () => {
+        // Ausführen
+        executeBtn.addEventListener('click', async () => {
             const text = textInput.value.trim();
-            const language = document.getElementById('language-select').value;
+            if (!text) return alert("Bitte gib zuerst einen Text ein!");
 
-            if (!text || text.length < 3) {
-                alert("Bitte gib einen gültigen Text ein (mindestens 3 Zeichen)!");
-                return;
-            }
+            resultCard.classList.remove('hidden');
+            textOutput.innerText = "Verarbeite Anfrage...";
+            resultTitle.innerText = `${aktuellesModul}-Ergebnis`;
 
-            spinner.classList.remove('hidden');
-            textOutput.innerText = "Übersetzung wird generiert...";
+            const zielSprache = aktuellesModul === "Übersetzer" ? document.getElementById('language-select').value : null;
 
             try {
                 const response = await fetch('/.netlify/functions/translate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text, language })
+                    body: JSON.stringify({ text, modul: aktuellesModul, language: zielSprache })
                 });
                 const data = await response.json();
-                textOutput.innerText = data.translation || data.result;
+                textOutput.innerText = data.result || data.translation;
             } catch (err) {
-                textOutput.innerText = "Fehler bei der Verbindung zum Server.";
-            } finally {
-                spinner.classList.add('hidden');
+                textOutput.innerText = "Fehler bei der Verarbeitung.";
             }
         });
 
-        // Grammatik-Simulations-Check
-        document.getElementById('check-btn').addEventListener('click', () => {
-            const text = textInput.value.trim();
-            if (!text) return alert("Bitte gib zuerst einen Text ein!");
-            textOutput.innerHTML = "<strong>Grammatik-Check:</strong><br><br>" + text + "<br><br>✓ Keine offensichtlichen Fehler gefunden!";
+        // Zurücksetzen
+        resetBtn.addEventListener('click', () => {
+            textInput.value = "";
+            textInput.dispatchEvent(new Event('input'));
+            resultCard.classList.add('hidden');
         });
 
-        // Text vorlesen
+        // Vorlesen & Download
         document.getElementById('speak-btn').addEventListener('click', () => {
-            const text = textOutput.innerText;
-            if (!text || text.startsWith("Dein Ergebnis")) return;
-            const utterance = new SpeechSynthesisUtterance(text);
-            window.speechSynthesis.speak(utterance);
+            window.speechSynthesis.speak(new SpeechSynthesisUtterance(textOutput.innerText));
         });
-
-        // Ergebnis herunterladen
         document.getElementById('download-btn').addEventListener('click', () => {
-            const text = textOutput.innerText;
-            if (!text || text.startsWith("Dein Ergebnis")) return;
-            const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+            const blob = new Blob([textOutput.innerText], { type: 'text/plain;charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = 'contexto-ergebnis.txt';
