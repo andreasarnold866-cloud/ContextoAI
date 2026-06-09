@@ -1,13 +1,14 @@
-/* Farbvariablen für den System-Blackmode */
 :root {
-    --bg-color: #0b0b0d;       /* Sehr tiefes, modernes Schwarz */
-    --card-bg: #141417;        /* Dunkles Anthrazit für die Container */
-    --text-main: #f3f4f6;      /* Klares Weiß für gute Lesbarkeit */
-    --text-muted: #94a3b8;     /* Edles Graublau für Untertitel/Labels */
-    --accent: #3b82f6;         /* Modernes Blau für den Button */
-    --accent-hover: #1d4ed8;   /* Hover-Effekt für den Button */
-    --border: #222226;         /* Subtile, dunkle Trennlinien */
-    --input-bg: #1a1a1e;       /* Hintergrund der Textfelder */
+    --bg-color: #0b0b0d;
+    --card-bg: #141417;
+    --text-main: #f3f4f6;
+    --text-muted: #94a3b8;
+    --accent: #3b82f6;
+    --accent-hover: #1d4ed8;
+    --border: #222226;
+    --input-bg: #1a1a1e;
+    --btn-secondary: #27272a;
+    --btn-secondary-hover: #3f3f46;
 }
 
 * {
@@ -19,47 +20,44 @@
 body {
     background-color: var(--bg-color);
     color: var(--text-main);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     padding: 3rem 1.5rem;
-    display: block; /* Verhindert klobiges Zentrieren */
 }
 
 .app-container {
     width: 100%;
-    max-width: 1000px; /* Schön breit wie im Original */
+    max-width: 1000px;
     margin: 0 auto;
 }
 
 header {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
 }
 
 header h1 {
     font-size: 2.2rem;
     font-weight: 700;
-    color: var(--text-main);
     margin-bottom: 0.4rem;
 }
 
 header p {
-    font-size: 1rem;
     color: var(--text-muted);
 }
 
 .card {
     background-color: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
 }
 
 textarea {
     width: 100%;
-    height: 160px;
+    height: 180px;
     background-color: var(--input-bg);
     border: 1px solid var(--border);
-    border-radius: 6px;
+    border-radius: 8px;
     color: var(--text-main);
     padding: 1rem;
     font-size: 1rem;
@@ -73,12 +71,19 @@ textarea:focus {
     border-color: var(--accent);
 }
 
-/* Fluid Controls: Richtet Dropdown links und Button rechts aus */
+/* Tool-Leiste direkt unter dem Textfeld */
+.utility-row {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+/* Haupt-Steuerungszeile unten */
 .controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     gap: 1rem;
 }
 
@@ -97,82 +102,97 @@ textarea:focus {
     background-color: var(--input-bg);
     color: var(--text-main);
     border: 1px solid var(--border);
-    padding: 0.5rem 2rem 0.5rem 0.75rem;
-    border-radius: 6px;
+    padding: 0.6rem 2rem 0.6rem 0.75rem;
+    border-radius: 8px;
     outline: none;
     cursor: pointer;
-    font-size: 0.95rem;
 }
 
+.action-buttons {
+    display: flex;
+    gap: 0.75rem;
+}
+
+/* Button-Stylings basierend auf deinen Bildern */
 .btn {
-    background-color: var(--accent);
-    color: white;
-    border: none;
-    padding: 0.6rem 1.75rem;
-    border-radius: 6px;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
     font-weight: 600;
     font-size: 0.95rem;
     cursor: pointer;
-    transition: background-color 0.15s ease;
+    border: none;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.btn:hover {
+.btn-primary {
+    background-color: var(--accent);
+    color: white;
+}
+
+.btn-primary:hover {
     background-color: var(--accent-hover);
+}
+
+.btn-tool {
+    background-color: var(--accent);
+    color: white;
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+}
+
+.btn-module {
+    background-color: #2563eb;
+    color: white;
+}
+
+/* Metriken Styling */
+.metrics-row {
+    display: flex;
+    gap: 1.5rem;
+    margin: 1rem 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
 }
 
 .output-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
 }
 
-.output-header h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
+.output-utilities {
+    display: flex;
+    gap: 0.5rem;
 }
 
 .output-box {
     background-color: var(--input-bg);
     border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1rem;
-    min-height: 100px;
+    border-radius: 8px;
+    padding: 1.25rem;
+    min-height: 120px;
     white-space: pre-wrap;
     color: var(--text-main);
-    font-size: 1rem;
 }
 
-/* Lade-Spinner */
 .spinner {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     border: 2px solid var(--border);
     border-top: 2px solid var(--accent);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
 
-.hidden {
-    display: none;
-}
+.hidden { display: none; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Responsive Anpassung für kleinere Bildschirme */
-@media (max-width: 600px) {
-    .controls {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .dropdown-group {
-        justify-content: space-between;
-    }
-    .btn {
-        width: 100%;
-        text-align: center;
-    }
+@media (max-width: 650px) {
+    .controls { flex-direction: column; align-items: stretch; }
+    .action-buttons { flex-direction: column; }
+    .utility-row { flex-wrap: wrap; }
 }
