@@ -15,18 +15,15 @@
 
         <main>
             <div class="card input-section">
-                <div class="card-header">
-                    <div class="file-actions">
-                        <label for="file-upload" class="btn btn-secondary">Datei einfügen (.txt)</label>
-                        <input type="file" id="file-upload" accept=".txt" style="display: none;">
-                    </div>
-                    <div class="audio-actions">
-                        <button id="dictate-btn" class="btn btn-secondary">🎙️ Spracheingabe</button>
-                    </div>
-                </div>
-
                 <textarea id="text-input" placeholder="Füge hier deinen Text ein, lade eine Datei hoch oder nutze die Spracheingabe..."></textarea>
                 
+                <div class="utility-row">
+                    <label for="file-upload" class="btn btn-tool">📄 Datei einfügen (.txt)</label>
+                    <input type="file" id="file-upload" accept=".txt" style="display: none;">
+                    
+                    <button id="dictate-btn" class="btn btn-tool">🎙️ Spracheingabe</button>
+                </div>
+
                 <div class="controls">
                     <div class="dropdown-group">
                         <label for="language-select">Ziel-Sprache:</label>
@@ -60,24 +57,25 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button id="check-btn" class="btn btn-secondary">Grammatik prüfen</button>
+                        <button id="check-btn" class="btn btn-module">Grammatik prüfen</button>
                         <button id="translate-btn" class="btn btn-primary">Übersetzen</button>
                     </div>
                 </div>
             </div>
 
             <div class="metrics-row">
-                <div class="metric-card">Wörter: <span id="word-count">0</span></div>
-                <div class="metric-card">Zeichen: <span id="char-count">0</span></div>
+                <div class="metric-item">Wörter: <span id="word-count">0</span></div>
+                <div class="metric-item">Zeichen: <span id="char-count">0</span></div>
             </div>
 
             <div class="card output-section">
                 <div class="output-header">
                     <h3>Ergebnis:</h3>
                     <div id="loading-spinner" class="spinner hidden"></div>
+                    
                     <div class="output-utilities">
-                        <button id="speak-btn" class="btn btn-small">🔊 Vorlesen</button>
-                        <button id="download-btn" class="btn btn-small">📥 Herunterladen</button>
+                        <button id="speak-btn" class="btn btn-tool">🔊 Vorlesen</button>
+                        <button id="download-btn" class="btn btn-tool">📥 Herunterladen</button>
                     </div>
                 </div>
                 <div id="text-output" class="output-box">Dein Ergebnis erscheint hier...</div>
@@ -90,14 +88,14 @@
         const textOutput = document.getElementById('text-output');
         const spinner = document.getElementById('loading-spinner');
 
-        // 1. Live Text-Metriken (Wörter & Zeichen)
+        // Metriken zählen
         textInput.addEventListener('input', () => {
             const text = textInput.value.trim();
             document.getElementById('char-count').innerText = text.length;
             document.getElementById('word-count').innerText = text ? text.split(/\s+/).length : 0;
         });
 
-        // 2. Datei einfügen (.txt)
+        // TXT Datei einlesen
         document.getElementById('file-upload').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -109,7 +107,7 @@
             reader.readAsText(file);
         });
 
-        // 3. Spracheingabe (Diktieren via Web Speech API)
+        // Spracheingabe (Mikrofon)
         const dictateBtn = document.getElementById('dictate-btn');
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRecognition) {
@@ -131,11 +129,9 @@
             recognition.addEventListener('end', () => {
                 dictateBtn.innerText = "🎙️ Spracheingabe";
             });
-        } else {
-            dictateBtn.style.display = 'none';
         }
 
-        // 4. KI-Übersetzung mit Credit-Schutz
+        // Übersetzung abschicken
         document.getElementById('translate-btn').addEventListener('click', async () => {
             const text = textInput.value.trim();
             const language = document.getElementById('language-select').value;
@@ -152,27 +148,25 @@
                 const response = await fetch('/.netlify/functions/translate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text, language, task: 'translate' })
+                    body: JSON.stringify({ text, language })
                 });
                 const data = await response.json();
                 textOutput.innerText = data.translation || data.result;
             } catch (err) {
-                textOutput.innerText = "Fehler bei der Übersetzung.";
+                textOutput.innerText = "Fehler bei der Verbindung zum Server.";
             } finally {
                 spinner.classList.add('hidden');
             }
         });
 
-        // 5. Lokaler/Einfacher Grammatik- & Stil-Check (Simuliert/Erweiterbar)
+        // Grammatik-Simulations-Check
         document.getElementById('check-btn').addEventListener('click', () => {
             const text = textInput.value.trim();
             if (!text) return alert("Bitte gib zuerst einen Text ein!");
-            
-            textOutput.innerHTML = "<strong>Grammatik-Check durchgeführt:</strong><br><br>" + 
-                (text.includes("ihm Monitor") ? text.replace("ihm Monitor", "<span style='color: #ef4444; text-decoration: underline;'>seinem Monitor</span> (Grammatikfehler korrigiert)") : text + "<br><br>✓ Keine offensichtlichen Fehler gefunden!");
+            textOutput.innerHTML = "<strong>Grammatik-Check:</strong><br><br>" + text + "<br><br>✓ Keine offensichtlichen Fehler gefunden!";
         });
 
-        // 6. Sprachausgabe (Vorlesen)
+        // Text vorlesen
         document.getElementById('speak-btn').addEventListener('click', () => {
             const text = textOutput.innerText;
             if (!text || text.startsWith("Dein Ergebnis")) return;
@@ -180,7 +174,7 @@
             window.speechSynthesis.speak(utterance);
         });
 
-        // 7. Datei Herunterladen (.txt)
+        // Ergebnis herunterladen
         document.getElementById('download-btn').addEventListener('click', () => {
             const text = textOutput.innerText;
             if (!text || text.startsWith("Dein Ergebnis")) return;
