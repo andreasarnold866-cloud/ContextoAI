@@ -1,5 +1,3 @@
-const fetch = require('node-fetch');
-
 exports.handler = async (event, context) => {
     if (event.httpMethod !== 'POST') {
         return { statusCode: 405, body: 'Method Not Allowed' };
@@ -24,6 +22,7 @@ CRITICAL RULES FOR CREDIT SAVING:
 3. Absolutely NO chat, explanations, footnotes, or conversational commentary.
 4. Keep the exact original formatting, paragraphs, and line breaks.`;
 
+        // Nutzt das eingebaute globale fetch von Netlify/Node.js
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
             headers: {
