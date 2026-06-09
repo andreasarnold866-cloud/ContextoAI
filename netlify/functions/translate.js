@@ -13,16 +13,14 @@ exports.handler = async (event, context) => {
             };
         }
 
-        // STRENGER SYSTEM PROMPT FÜR HÖCHSTE CREDIT-SCHONUNG
         const systemPrompt = `You are an elite, professional translator. 
 Translate the user's text into ${language}.
 CRITICAL RULES FOR CREDIT SAVING:
 1. Output ONLY the raw direct translation.
-2. Absolutely NO introductory phrases (e.g., do NOT say "Here is your translation:").
-3. Absolutely NO chat, explanations, footnotes, or conversational commentary.
-4. Keep the exact original formatting, paragraphs, and line breaks.`;
+2. Absolutely NO introductory phrases.
+3. Absolutely NO chat, explanations, or commentary.
+4. Keep the exact original formatting.`;
 
-        // Nutzt das in Node 18+ integrierte globale fetch (Beseitigt den Netlify-Buildfehler!)
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
             headers: {
