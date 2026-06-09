@@ -1,25 +1,24 @@
 exports.handler = async (event, context) => {
-    if (event.httpMethod !== 'POST') {
-        return { statusCode: 405, body: 'Method Not Allowed' };
-    }
+    if (event.httpMethod !== 'POST') return { statusCode: 405, body: 'Method Not Allowed' };
 
     try {
-        const { text, language } = JSON.parse(event.body);
+        const { text, modul, language } = JSON.parse(event.body);
+        if (!text) return { statusCode: 400, body: JSON.stringify({ error: 'Kein Text vorhanden.' }) };
 
-        if (!text || !language) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ error: 'Fehlende Parameter.' })
-            };
+        let systemPrompt = "Du bist ein präziser Textassistent.";
+        
+        // Passt sich perfekt an die gewählten Kapseln an!
+        if (modul === "Zusammenfassung") {
+            systemPrompt = "Fasse den Text kurz und knackig zusammen. Bringe die Kernpunkte auf den Punkt.";
+        } else if (modul === "Einfach Erklären") {
+            systemPrompt = "Erkläre den folgenden Text so einfach, dass ihn ein Kind problemlos versteht.";
+        } else if (modul === "Profi-Stil umschreiben") {
+            systemPrompt = "Schreibe den Text in ein elegantes, professionelles Business-Deutsch um.";
+        } else if (modul === "Grammatik-Check") {
+            systemPrompt = "Prüfe die Grammatik und Rechtschreibung. Gib den korrigierten Text aus und liste Fehler kurz auf.";
+        } else if (modul === "Übersetzer" && language) {
+            systemPrompt = `Translate the text directly into ${language}. Output ONLY the raw translation without any chat or explanations.`;
         }
-
-        const systemPrompt = `You are an elite, professional translator. 
-Translate the user's text into ${language}.
-CRITICAL RULES FOR CREDIT SAVING:
-1. Output ONLY the raw direct translation.
-2. Absolutely NO introductory phrases.
-3. Absolutely NO chat, explanations, or commentary.
-4. Keep the exact original formatting.`;
 
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
@@ -28,28 +27,22 @@ CRITICAL RULES FOR CREDIT SAVING:
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                model: "google/gemini-2.5-flash", 
+                model: "google/gemini-2.5-flash",
                 messages: [
                     { role: "system", content: systemPrompt },
                     { role: "user", content: text }
                 ],
-                temperature: 0.3 
+                temperature: 0.3
             })
         });
 
         const data = await response.json();
-        const translationResult = data.choices[0].message.content.trim();
-
         return {
             statusCode: 200,
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ translation: translationResult })
+            body: JSON.stringify({ result: data.choices[0].message.content.trim() })
         };
-
     } catch (error) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: error.message })
-        };
+        return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
     }
 };
