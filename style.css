@@ -1,0 +1,32 @@
+/* Standard: Dark Mode für alle */
+:root {
+    --bg-color: #121212;       /* Tiefes Schwarz/Sehr dunkles Grau */
+    --card-bg: #1e1e1e;        /* Etwas helleres Grau für Boxen/Karten */
+    --text-color: #e0e0e0;     /* Angenehmes Weiß/Hellgrau für die Augen */
+    --accent-color: #3b82f6;   /* Modernes Blau für Buttons/Highlights */
+    --border-color: #333333;   /* Dunkle Trennlinien */
+}
+
+/* Optional: Falls der Nutzer explizit Hell eingestellt hat, wechselt es (kannst du auch weglassen) */
+@media (prefers-color-scheme: light) {
+    /* Wenn du NUR Blackmode willst, lösch diesen Media-Query einfach */
+    :root {
+        --bg-color: #ffffff;
+        --card-bg: #f5f5f5;
+        --text-color: #1a1a1a;
+        --border-color: #e5e5e5;
+    }
+}
+
+/* Nutze die Variablen in deinen Elementen */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: sans-serif;
+    transition: background 0.3s, color 0.3s;
+}
+
+.card, .input-area, .output-box {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
