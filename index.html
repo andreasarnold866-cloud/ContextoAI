@@ -70,7 +70,7 @@
             const outputBox = document.getElementById('text-output');
             const spinner = document.getElementById('loading-spinner');
 
-            // CREDIT-SCHUTZ: Verhindert leere oder extrem kurze Klicks vor dem API-Call
+            // CREDIT-SCHUTZ: Verhindert leere API-Anfragen
             if (!textInput || textInput.length < 3) {
                 alert("Bitte gib einen gültigen Text ein (mindestens 3 Zeichen), bevor du übersetzt!");
                 return; 
