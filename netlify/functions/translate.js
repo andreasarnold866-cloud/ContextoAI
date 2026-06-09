@@ -13,7 +13,7 @@ exports.handler = async (event, context) => {
             };
         }
 
-        // STRENGER SYSTEM PROMPT: Verhindert unnötige Token-Verschwendung
+        // STRENGER SYSTEM PROMPT FÜR HÖCHSTE CREDIT-SCHONUNG
         const systemPrompt = `You are an elite, professional translator. 
 Translate the user's text into ${language}.
 CRITICAL RULES FOR CREDIT SAVING:
@@ -22,7 +22,7 @@ CRITICAL RULES FOR CREDIT SAVING:
 3. Absolutely NO chat, explanations, footnotes, or conversational commentary.
 4. Keep the exact original formatting, paragraphs, and line breaks.`;
 
-        // Nutzt das eingebaute globale fetch von Netlify/Node.js
+        // Nutzt das in Node 18+ integrierte globale fetch (Beseitigt den Netlify-Buildfehler!)
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
             headers: {
