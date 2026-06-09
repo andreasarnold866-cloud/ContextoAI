@@ -10,18 +10,19 @@
     
     <style>
         :root {
-            --bg: #0b0b0f;
-            --bg2: #121218;
-            --bg3: #1c1c24;
-            --text: #f3f4f6;
-            --text2: #9ca3af;
-            --text3: #6b7280;
-            --border: #22222e;
-            --brand: #6366f1;       /* Das originale Violett */
+            --bg: #ffffff;
+            --bg2: #f9fafb;
+            --bg3: #f3f4f6;
+            --text: #111827;
+            --text2: #4b5563;
+            --text3: #9ca3af;
+            --border: #e5e7eb;
+            --brand: #6366f1;
             --brand-hover: #4f46e5;
             --green: #10b981;
             --red: #ef4444;
             --r: 12px;
+            --shadow: rgba(0, 0, 0, 0.05);
         }
 
         body.dark-theme {
@@ -32,95 +33,115 @@
             --text2: #9ca3af;
             --text3: #6b7280;
             --border: #22222e;
+            --shadow: rgba(0, 0, 0, 0.3);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'DM Sans', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'DM Sans', sans-serif; transition: background-color 0.2s, border-color 0.2s, color 0.2s; }
         body { background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.5; }
 
-        nav { display: flex; align-items: center; justify-content: center; height: 70px; border-bottom: 1px solid var(--border); background: rgba(11,11,15,0.8); backdrop-filter: blur(8px); position: sticky; top:0; z-index:100; }
+        nav { display: flex; align-items: center; justify-content: center; height: 70px; border-bottom: 1px solid var(--border); background: var(--bg2); position: sticky; top:0; z-index:100; box-shadow: 0 2px 10px var(--shadow); }
         .nav-container { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .nav-logo { font-family: 'DM Serif Display', serif; font-size: 24px; color: #fff; text-decoration: none; font-weight: bold; }
+        .nav-logo { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--text); text-decoration: none; font-weight: bold; }
         .nav-logo span { color: var(--brand); }
         .nav-links { display: flex; list-style: none; gap: 24px; }
-        .nav-links a { color: var(--text2); text-decoration: none; font-size: 14px; transition: color 0.2s; }
-        .nav-links a:hover { color: #fff; }
+        .nav-links a { color: var(--text2); text-decoration: none; font-size: 14px; }
+        .nav-links a:hover { color: var(--brand); }
 
-        .theme-btn, .lang-select { background: var(--bg3); color: var(--text); border: 1px solid var(--border); padding: 8px 14px; border-radius: 8px; font-size: 13px; cursor: pointer; outline: none; }
-        .lang-select { color-scheme: dark; }
+        .theme-btn, .lang-select { background: var(--bg3); color: var(--text); border: 1px solid var(--border); padding: 8px 14px; border-radius: 8px; font-size: 13px; cursor: pointer; outline: none; font-weight: 500; }
 
-        .hero { position: relative; padding: 100px 20px 60px 20px; text-align: center; max-width: 800px; margin: 0 auto; }
-        .hero-glow { position: absolute; width: 300px; height: 300px; background: rgba(99,102,241,0.15); filter: blur(80px); top: 20px; left: 50%; transform: translateX(-50%); z-index: -1; }
-        .hero-eyebrow { font-size: 13px; color: var(--text3); margin-bottom: 16px; display: inline-flex; align-items: center; gap: 6px; background: var(--bg2); padding: 4px 12px; border-radius: 20px; border: 1px solid var(--border); }
+        .hero { position: relative; padding: 60px 20px 40px 20px; text-align: center; max-width: 800px; margin: 0 auto; }
+        .hero-glow { position: absolute; width: 300px; height: 300px; background: rgba(99,102,241,0.1); filter: blur(80px); top: 20px; left: 50%; transform: translateX(-50%); z-index: -1; }
+        .hero-eyebrow { font-size: 13px; color: var(--text2); margin-bottom: 16px; display: inline-flex; align-items: center; gap: 6px; background: var(--bg2); padding: 4px 12px; border-radius: 20px; border: 1px solid var(--border); }
         .eyebrow-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
-        .hero h1 { font-family: 'DM Serif Display', serif; font-size: 48px; line-height: 1.1; margin-bottom: 20px; color: #fff; }
+        .hero h1 { font-family: 'DM Serif Display', serif; font-size: 44px; line-height: 1.1; margin-bottom: 20px; color: var(--text); }
         .highlight-word { color: var(--brand); font-style: normal; }
         .hero-sub { color: var(--text2); font-size: 16px; max-width: 600px; margin: 0 auto 30px auto; }
-        .hero-cta { background: var(--brand); color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-block; transition: background 0.2s; }
+        .hero-cta { background: var(--brand); color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; display: inline-block; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2); }
         .hero-cta:hover { background: var(--brand-hover); }
 
-        .tool-section { padding: 40px 20px; }
+        .tool-section { padding: 20px 20px 40px 20px; }
         .container { max-width: 1000px; margin: 0 auto; }
         .tool-header { text-align: center; margin-bottom: 30px; }
-        .tool-header h2 { font-family: 'DM Serif Display', serif; font-size: 28px; margin-bottom: 8px; color: #fff; }
+        .tool-header h2 { font-family: 'DM Serif Display', serif; font-size: 28px; margin-bottom: 8px; color: var(--text); }
         .tool-header p { color: var(--text2); font-size: 14px; }
 
-        .tool-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-        .tool-topbar { background: #161622; padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; }
+        .tool-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; box-shadow: 0 20px 40px var(--shadow); }
+        .tool-topbar { background: var(--bg3); padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; }
         .tb-dots { display: flex; gap: 6px; margin-right: 12px; }
         .tb-dot { width: 10px; height: 10px; border-radius: 50%; }
         .tb-dot.r { background: #ff5f56; } .tb-dot.y { background: #ffbd2e; } .tb-dot.g { background: #27c93f; }
-        .tb-title { font-size: 12px; color: var(--text3); font-family: monospace; }
+        .tb-title { font-size: 12px; color: var(--text2); font-family: monospace; }
 
         .tool-body { padding: 24px; }
-
         .input-wrap { position: relative; margin-bottom: 20px; }
-        textarea.main { width: 100%; height: 180px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 16px; color: var(--text); font-size: 15px; resize: none; outline: none; transition: border-color 0.2s; }
+        textarea.main { width: 100%; height: 180px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 16px; padding-bottom: 55px; color: var(--text); font-size: 15px; resize: none; outline: none; }
         textarea.main:focus { border-color: var(--brand); }
-        .char-badge { position: absolute; bottom: 12px; right: 12px; font-size: 11px; color: var(--text3); background: var(--bg2); padding: 2px 8px; border-radius: 4px; }
+        
+        .input-toolbar { position: absolute; bottom: 12px; left: 12px; right: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .audio-buttons-input { display: flex; gap: 6px; }
+        .icon-btn { background: var(--bg2); border: 1px solid var(--border); color: var(--text); padding: 5px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-weight: 500; }
+        .icon-btn:hover { border-color: var(--brand); color: var(--brand); }
+        .char-badge { font-size: 11px; color: var(--text2); background: var(--bg2); padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); font-weight: 500; }
 
-        .upload-zone { background: var(--bg3); border: 1px dashed var(--border); border-radius: 8px; padding: 12px; margin-bottom: 16px; cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; transition: border 0.2s; }
+        .upload-zone { background: var(--bg3); border: 1px dashed var(--border); border-radius: 8px; padding: 14px; margin-bottom: 16px; cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .upload-zone input[type="file"] { display: none; }
-        .upload-text-main { font-size: 13px; color: var(--text2); }
+        .upload-text-main { font-size: 13px; color: var(--text2); font-weight: 500; }
         .upload-zone:hover { border-color: var(--brand); }
 
-        .label-sm { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 10px; font-weight: bold; }
+        .label-sm { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text2); margin-bottom: 10px; font-weight: bold; }
+        
+        .translator-options { display: none; margin-bottom: 20px; background: var(--bg3); padding: 14px; border-radius: 8px; border: 1px solid var(--border); }
+        .trans-select { background: var(--bg2); color: var(--text); border: 1px solid var(--border); padding: 8px 14px; border-radius: 6px; font-size: 14px; outline: none; margin-top: 6px; width: 100%; max-width: 250px; cursor: pointer; }
+
         .modes-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
-        .mode-btn { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); padding: 10px 16px; border-radius: 20px; font-size: 13px; cursor: pointer; transition: all 0.2s; }
-        .mode-btn:hover { color: #fff; border-color: var(--text3); }
-        .mode-btn.active { background: rgba(99,102,241,0.15); color: #c7d2fe; border-color: var(--brand); }
+        .mode-btn { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); padding: 10px 16px; border-radius: 20px; font-size: 13px; cursor: pointer; font-weight: 500; }
+        .mode-btn:hover { color: var(--text); border-color: var(--text2); }
+        .mode-btn.active { background: rgba(99,102,241,0.15); color: var(--brand); border-color: var(--brand); }
 
         .run-row { display: flex; gap: 12px; margin-bottom: 16px; }
-        .run-btn { background: var(--brand); color: #fff; border: none; padding: 12px 28px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; flex: 1; transition: background 0.2s; }
+        .run-btn { background: var(--brand); color: #fff; border: none; padding: 12px 28px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; flex: 1; box-shadow: 0 4px 10px rgba(99,102,241,0.15); }
         .run-btn:hover { background: var(--brand-hover); }
-        .clear-btn { background: transparent; color: var(--text2); border: 1px solid var(--border); padding: 12px 20px; border-radius: 8px; font-size: 14px; cursor: pointer; transition: all 0.2s; }
-        .clear-btn:hover { color: #fff; background: var(--bg3); }
+        .run-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .clear-btn { background: transparent; color: var(--text2); border: 1px solid var(--border); padding: 12px 20px; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 500; }
+        .clear-btn:hover { color: var(--text); background: var(--bg3); }
 
-        .ki-warning-badge { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #d97706; background: rgba(217,119,6,0.1); border: 1px solid rgba(217,119,6,0.2); padding: 10px; border-radius: 6px; margin-bottom: 24px; }
+        .ki-warning-badge { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #d97706; background: rgba(217,119,6,0.08); border: 1px solid rgba(217,119,6,0.15); padding: 10px; border-radius: 6px; margin-bottom: 24px; font-weight: 500; }
 
-        .result-wrap { background: #0f0f15; border: 1px solid var(--border); border-radius: 8px; padding: 20px; display: none; }
+        .result-wrap { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 20px; display: none; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); }
         .result-wrap.show { display: block; }
         .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
-        .result-header h3 { font-family: 'DM Serif Display', serif; font-size: 20px; color: #fff; }
-        .copy-btn { background: var(--bg3); color: var(--text2); border: 1px solid var(--border); padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
-        .copy-btn:hover { color: #fff; }
+        .result-header h3 { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--text); }
+        .result-header-right { display: flex; align-items: center; gap: 8px; }
+        .result-tag { font-size: 11px; font-weight: bold; padding: 2px 8px; border-radius: 4px; display: none; text-transform: uppercase; }
+        .tag-ok { background: rgba(16, 185, 129, 0.15); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .tag-warn { background: rgba(239, 68, 68, 0.15); color: var(--red); border: 1px solid rgba(239, 68, 68, 0.3); }
         .result-text { font-size: 15px; color: var(--text); line-height: 1.6; }
 
-        .how-section { padding: 60px 20px; background: #09090d; border-top: 1px solid var(--border); }
-        .section-label { font-size: 12px; color: var(--brand); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: bold; }
-        .how-section h2 { text-align: center; font-family: 'DM Serif Display', serif; font-size: 32px; margin-bottom: 40px; color: #fff; }
+        /* Metriken Grid Design */
+        .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 10px; }
+        .stat-box { background: var(--bg2); border: 1px solid var(--border); padding: 14px; border-radius: 8px; text-align: center; }
+        .stat-lbl { font-size: 11px; text-transform: uppercase; color: var(--text2); font-weight: bold; margin-bottom: 4px; letter-spacing: 0.5px; }
+        .stat-val { font-size: 20px; font-weight: bold; color: var(--brand); }
+        .stat-val.sm { font-size: 14px; margin-top: 6px; color: var(--text); }
+
+        .loading-indicator { display: none; align-items: center; justify-content: center; gap: 12px; padding: 20px; color: var(--brand); font-weight: 500; font-size: 14px; }
+
+        .how-section { padding: 60px 20px; background: var(--bg2); border-top: 1px solid var(--border); }
+        .section-label { font-size: 12px; color: var(--brand); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-weight: bold; text-align: center; }
+        .how-section h2 { text-align: center; font-family: 'DM Serif Display', serif; font-size: 32px; margin-bottom: 40px; color: var(--text); }
         .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-        .step { background: var(--bg2); border: 1px solid var(--border); padding: 24px; border-radius: var(--r); position: relative; }
-        .step-num { position: absolute; top: 16px; right: 16px; font-size: 12px; color: var(--text3); background: var(--bg3); width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+        .step { background: var(--bg); border: 1px solid var(--border); padding: 24px; border-radius: var(--r); position: relative; box-shadow: 0 4px 12px var(--shadow); }
+        .step-num { position: absolute; top: 16px; right: 16px; font-size: 12px; color: var(--text2); background: var(--bg3); width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold; }
         .step-icon { font-size: 24px; margin-bottom: 12px; }
-        .step h3 { font-size: 16px; margin-bottom: 8px; color: #fff; }
+        .step h3 { font-size: 16px; margin-bottom: 8px; color: var(--text); }
         .step p { font-size: 13px; color: var(--text2); }
 
-        footer { text-align: center; padding: 30px; font-size: 12px; color: var(--text3); border-top: 1px solid var(--border); background: var(--bg); }
-        .spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--brand); border-radius: 50%; animation: spin 0.6s linear infinite; }
+        footer { text-align: center; padding: 30px; font-size: 12px; color: var(--text2); border-top: 1px solid var(--border); background: var(--bg); }
+        .spinner { width: 24px; height: 24px; border: 3px solid var(--border); border-top-color: var(--brand); border-radius: 50%; animation: spin 0.6s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="dark-theme">
+<body>
 
 <nav>
     <div class="nav-container">
@@ -172,22 +193,27 @@
                 </div>
 
                 <div class="input-wrap">
-                    <textarea class="main" id="inputText" placeholder="Schreibe oder füge hier deinen Text ein..."></textarea>
-                    <span class="char-badge" id="charCount">0 Zeichen</span>
+                    <textarea class="main" id="inputText" placeholder="Text hier einfügen..."></textarea>
+                    <div class="input-toolbar">
+                        <div class="audio-buttons-input">
+                            <button class="icon-btn" id="micBtn">🎤 <span data-i18n="btn_dictate">Diktieren</span></button>
+                        </div>
+                        <span class="char-badge" id="charCount">0 Zeichen</span>
+                    </div>
                 </div>
 
-                <div id="translatorOptions" style="display: none; margin-bottom: 1.5rem; background: var(--bg3); padding: 12px; border-radius: var(--r); border: 1px solid var(--border);">
-                    <span class="label-sm" style="margin-bottom: 6px; display: block;" data-i18n="trans_label">Ziel-Sprache für Übersetzung:</span>
-                    <select id="targetLangSelect" style="background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 6px 12px; border-radius: 6px; color-scheme: dark;">
-                        <option value="Englisch">English</option>
+                <div class="translator-options" id="translatorOptions">
+                    <div class="label-sm" data-i18n="trans_label">Ziel-Sprache für Übersetzung:</div>
+                    <select class="trans-select" id="targetLangSelect">
                         <option value="Deutsch">Deutsch</option>
-                        <option value="Französisch">Français</option>
-                        <option value="Spanisch">Español</option>
-                        <option value="Italienisch">Italiano</option>
+                        <option value="English">English</option>
+                        <option value="Français">Français</option>
+                        <option value="Español">Español</option>
+                        <option value="Italiano">Italiano</option>
                     </select>
                 </div>
 
-                <div class="label-sm" data-i18n="modules_label">ANALYSE-MODUL:</div>
+                <div class="label-sm" data-i18n="modules_label">Analyse- & KI-Module:</div>
                 <div class="modes-row" id="modes">
                     <button class="mode-btn active" data-mode="summary" data-i18n="mod_summary">📄 Zusammenfassung</button>
                     <button class="mode-btn" data-mode="explain" data-i18n="mod_explain">💡 Einfach Erklären</button>
@@ -200,28 +226,31 @@
 
                 <div class="run-row">
                     <button class="run-btn" id="runBtn" onclick="analyze()" data-i18n="btn_run">Analyse ausführen</button>
-                    <button class="clear-btn" onclick="clearAll()" data-i18n="btn_clear">Zurücksetzen</button>
+                    <button class="clear-btn" id="clearBtn" onclick="clearAll()" data-i18n="btn_clear">Zurücksetzen</button>
                 </div>
 
                 <div class="ki-warning-badge">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                    <span data-i18n="ki_warning">KI kann Fehler machen. Überprüfe wichtige Antworten und Resultate sorgfältig.</span>
+                    ⚠️ <span data-i18n="ki_warning">KI kann Fehler machen. Überprüfe wichtige Resultate sorgfältig.</span>
+                </div>
+
+                <div class="loading-indicator" id="loadingIndicator">
+                    <div class="spinner"></div>
+                    <span data-i18n="loading_text">KI analysiert Daten...</span>
                 </div>
 
                 <div class="result-wrap" id="resultWrap">
                     <div class="result-header">
-                        <h3 id="resultTitle" data-i18n="res_title">Ergebnis</h3>
-                        <span class="result-tag" id="resultTag" style="display:none"></span>
-                        <button class="copy-btn" id="copyBtn" onclick="copyResult()">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                            <span data-i18n="btn_copy">Kopieren</span>
-                        </button>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <h3 id="resultTitle" data-i18n="res_title">Ergebnis</h3>
+                            <span class="result-tag" id="resultTag"></span>
+                        </div>
+                        <div class="result-header-right">
+                            <button class="icon-btn" id="speakBtn">🔊 <span data-i18n="btn_speak">Vorlesen</span></button>
+                            <button class="icon-btn" id="downloadBtn" style="display:none; background:var(--brand); color:#fff; border:none;">📥 <span data-i18n="btn_download">Download (.txt)</span></button>
+                            <button class="copy-btn" id="copyBtn" onclick="copyResult()">📋 <span data-i18n="btn_copy">Kopieren</span></button>
+                        </div>
                     </div>
-                    <div id="loadingIndicator" style="display: none; flex-direction: column; align-items: center; padding: 20px 10px; gap: 12px;">
-                        <div class="spinner"></div>
-                        <div style="font-size: 14px; color: var(--text2);" data-i18n="loading_text">KI analysiert Daten...</div>
-                    </div>
-                    <div id="resultBody"></div>
+                    <div id="resultBody" class="result-text"></div>
                 </div>
             </div>
         </div>
@@ -230,40 +259,39 @@
 
 <section class="how-section" id="wie">
     <div class="container">
-        <p class="section-label" style="text-align:center" data-i18n="pipe_label">Sichere Architektur</p>
+        <div class="section-label" data-i18n="pipe_label">Sichere Architektur</div>
         <h2 data-i18n="pipe_title">Pipeline der Datenverarbeitung</h2>
-        
         <div class="steps">
             <div class="step">
-                <span class="step-num">1</span>
-                <div class="step-icon">📋</div>
+                <div class="step-num">1</div>
+                <div class="step-icon">💻</div>
                 <h3 data-i18n="step1_title">Frontend Input</h3>
-                <p data-i18n="step1_desc">Der Benutzer fügt den Text ein oder lädt eine Datei.</p>
+                <p data-i18n="step1_desc">Der Benutzer fügt den Text ein oder lädt eine Datei. JavaScript liest den Wert im DOM aus.</p>
             </div>
             <div class="step">
-                <span class="step-num">2</span>
-                <div class="step-icon">🔒</div>
+                <div class="step-num">2</div>
+                <div class="step-icon">☁️</div>
                 <h3 data-i18n="step2_title">Netlify Function</h3>
-                <p data-i18n="step2_desc">Die Daten wandern ans Backend. Der API-Key ist auf dem Server verborgen.</p>
+                <p data-i18n="step2_desc">Die Daten wandern ans Backend. Der API-Key ist auf dem Server verborgen und für Nutzer unsichtbar.</p>
             </div>
             <div class="step">
-                <span class="step-num">3</span>
-                <div class="step-icon">🤖</div>
+                <div class="step-num">3</div>
+                <div class="step-icon">🧠</div>
                 <h3 data-i18n="step3_title">Inferenz</h3>
-                <p data-i18n="step3_desc">Das Sprachmodell verarbeitet den Text über OpenRouter.</p>
+                <p data-i18n="step3_desc">Das Sprachmodell verarbeitet den Text über OpenRouter und generiert die Antwort.</p>
             </div>
             <div class="step">
-                <span class="step-num">4</span>
+                <div class="step-num">4</div>
                 <div class="step-icon">✨</div>
                 <h3 data-i18n="step4_title">DOM Injection</h3>
-                <p data-i18n="step4_desc">Das Ergebnis wandert zurück ans Frontend.</p>
+                <p data-i18n="step4_desc">Das Ergebnis wandert zurück ans Frontend und wird über JavaScript flüssig eingeblendet.</p>
             </div>
         </div>
     </div>
 </section>
 
 <footer>
-    <p>Contexto · Projektarbeit Informatik · Sicher gehostet via Netlify</p>
+    <p>&copy; 2026 Contexto — Secure AI Web App Platform</p>
 </footer>
 
 <script src="script.js"></script>
