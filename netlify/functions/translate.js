@@ -15,7 +15,7 @@ exports.handler = async (event, context) => {
             };
         }
 
-        // STRENGER SYSTEM PROMPT: Verhindert, dass die KI "plaudert" und Token verschwendet
+        // STRENGER SYSTEM PROMPT: Verhindert unnötige Token-Verschwendung
         const systemPrompt = `You are an elite, professional translator. 
 Translate the user's text into ${language}.
 CRITICAL RULES FOR CREDIT SAVING:
@@ -31,7 +31,6 @@ CRITICAL RULES FOR CREDIT SAVING:
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                // Spar-Modell: Extrem kostengünstig und perfekt für Übersetzungen
                 model: "google/gemini-2.5-flash", 
                 messages: [
                     { role: "system", content: systemPrompt },
